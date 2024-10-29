@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "448651972328",
+    "project_id": "bularemedio-d825d",
+    "storage_bucket": "bularemedio-d825d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448651972328:android:e408c5fba481f6b481835d",
+        "android_client_info": {
+          "package_name": "com.bularemedio.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2CzjS7jtEiO3vK2FGq2-kPspB_yI32vg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -57,7 +57,8 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const CadastroScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const CadastroScreen()),
                 );
               },
               child: const Text('Cadastrar-se'),
