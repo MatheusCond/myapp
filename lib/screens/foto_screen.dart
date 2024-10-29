@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
+import 'login_screen.dart';
 
 class FotoScreen extends StatefulWidget {
   const FotoScreen({super.key});
@@ -12,6 +14,7 @@ class FotoScreen extends StatefulWidget {
 class _FotoScreenState extends State<FotoScreen> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
+  final _auth = FirebaseAuth.instance;
 
   Future<void> _getImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
@@ -23,10 +26,28 @@ class _FotoScreenState extends State<FotoScreen> {
     }
   }
 
+  void _logout() async {
+    await _auth.signOut();
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Foto')),
+      appBar: AppBar(
+        title: const Text('Foto'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: _logout,
+          ),
+        ],
+      ),
       body: Column(
         children: [
           if (_image != null)
