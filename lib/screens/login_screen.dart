@@ -32,16 +32,50 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      String message = 'E-mail ou senha incorretos';
-      if (e.code == 'user-not-found') {
-        message = 'Usuário não encontrado';
-      } else if (e.code == 'wrong-password') {
-        message = 'Senha incorreta';
+      print('Firebase Auth Error Code: ${e.code}');
+      print('Firebase Auth Error Message: ${e.message}');
+
+      String message;
+      switch (e.code) {
+        case 'user-not-found':
+          message = 'Usuário não encontrado';
+          break;
+        case 'wrong-password':
+        case 'invalid-credential': // Adicionado este caso
+          message = 'Email ou senha incorretos';
+          break;
+        case 'invalid-email':
+          message = 'Email inválido';
+          break;
+        case 'user-disabled':
+          message = 'Este usuário foi desabilitado';
+          break;
+        case 'too-many-requests':
+          message = 'Muitas tentativas. Tente novamente mais tarde';
+          break;
+        default:
+          message = 'Ocorreu um erro ao fazer login: ${e.code}';
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+            duration: const Duration(seconds: 3),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      print('Erro não relacionado ao Firebase: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Erro inesperado ao fazer login'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);
@@ -63,7 +97,14 @@ class _LoginScreenState extends State<LoginScreen> {
         title: const Text('BULAS REMÉDIOS'),
         centerTitle: true,
       ),
-      body: Padding(
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/fundo.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -81,6 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
+                fillColor: Color.fromARGB(255, 255, 255, 255),
+                filled: true,
               ),
               keyboardType: TextInputType.emailAddress,
             ),
@@ -91,6 +134,8 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(),
+                fillColor: Color.fromARGB(255, 255, 255, 255),
+                filled: true,
               ),
             ),
             const SizedBox(height: 32),

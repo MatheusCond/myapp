@@ -48,38 +48,46 @@ class _FotoScreenState extends State<FotoScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          if (_image != null)
-            Expanded(
-              child: Image.file(
-                _image!,
-                fit: BoxFit.contain,
-              ),
-            )
-          else
-            const Expanded(
-              child: Center(
-                child: Text('Nenhuma imagem selecionada'),
-              ),
-            ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => _getImage(ImageSource.camera),
-                  child: const Text('Tirar Foto'),
-                ),
-                ElevatedButton(
-                  onPressed: () => _getImage(ImageSource.gallery),
-                  child: const Text('Escolher da Galeria'),
-                ),
-              ],
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/fundo.jpg'),
+            fit: BoxFit.cover,
           ),
-        ],
+        ),
+        child: Column(
+          children: [
+            if (_image != null)
+              Expanded(
+                child: Image.file(
+                  _image!,
+                  fit: BoxFit.contain,
+                ),
+              )
+            else
+              const Expanded(
+                child: Center(
+                  child: Text('Nenhuma imagem selecionada'),
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _getImage(ImageSource.camera),
+                    child: const Text('Tirar Foto'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _getImage(ImageSource.gallery),
+                    child: const Text('Escolher da Galeria'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

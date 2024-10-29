@@ -75,7 +75,13 @@ class _CadastroScreenState extends State<CadastroScreen> {
         title: const Text('BULAS REMÉDIOS'),
         centerTitle: true,
       ),
-      body: Padding(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/fundo.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -93,6 +99,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
               decoration: InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
+                fillColor: Color.fromARGB(255, 255, 255, 255),
+                filled: true,
               ),
               keyboardType: TextInputType.emailAddress,
             ),
@@ -103,6 +111,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
               decoration: InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(),
+                fillColor: Color.fromARGB(255, 255, 255, 255),
+                filled: true,
               ),
             ),
             const SizedBox(height: 16),
@@ -112,6 +122,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
               decoration: InputDecoration(
                 labelText: 'Confirmar Senha',
                 border: OutlineInputBorder(),
+                fillColor: Color.fromARGB(255, 255, 255, 255),
+                filled: true,
               ),
             ),
             const SizedBox(height: 32),
